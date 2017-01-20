@@ -1,0 +1,10 @@
+mmap.c is a microbenchmark written to determine mmap, mprotect latencies
+
+1. Process pinned to a random core
+2. Anonymous region of specified size (4KB, 400KB, 4MB, 400MB, 4GB, 40GB) mmap-ed 
+3. Every page in region untouched/read/written
+4. Mprotect called to update region permissions to none
+
+Things to watch out for-
+Transparent Huge Pages - enable/disable using /sys/kernel/mm/transparent_hugepage/enabled
+Kernel same-page merging?

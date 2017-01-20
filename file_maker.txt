@@ -1,0 +1,12 @@
+#To create a file of specific size with random contents:
+#head -c 100m </dev/urandom >file
+head -c 400k </dev/urandom > file_400K.dat
+sleep 1
+head -c 400M </dev/urandom > file_400M.dat
+sleep 1
+head -c 4M </dev/urandom > file_4M.dat
+sleep 1
+head -c 4G </dev/urandom > file_4G.dat
+sleep 1
+head -c 40G </dev/urandom > file_40G.dat
+sleep 1
