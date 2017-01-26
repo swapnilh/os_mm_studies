@@ -132,9 +132,6 @@ int main (int argc, char* const argv[])
     if(touch == 'r')
         printf("a:%c\n", a);
 
-    //spin until killed so that we know it's in memory:
-    while(1);
-
     /* Release the memory (unnecessary because the program exits). */ 
     munmap (file_memory, filesize); 
 

@@ -8,3 +8,11 @@ mmap.c is a microbenchmark written to determine mmap, mprotect latencies
 Things to watch out for-
 Transparent Huge Pages - enable/disable using /sys/kernel/mm/transparent_hugepage/enabled
 Kernel same-page merging?
+Clear Page cache- sync; echo 1 | sudo tee /proc/sys/vm/drop_caches   
+Turn off hardware prefetechers using msr tool
+    Frequency Scaling - ondemand frequency scaling means variable performance so use performance governor
+
+
+If using Ftrace, follow the following steps
+echo 0 | sudo tee /sys/kernel/debug/tracing/tracing_on
+echo function_graph | sudo tee /sys/kernel/debug/tracing/current_tracer
