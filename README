@@ -10,7 +10,29 @@ Transparent Huge Pages - enable/disable using /sys/kernel/mm/transparent_hugepag
 Kernel same-page merging?
 Clear Page cache- sync; echo 1 | sudo tee /proc/sys/vm/drop_caches   
 Turn off hardware prefetechers using msr tool
-    Frequency Scaling - ondemand frequency scaling means variable performance so use performance governor
+https://software.intel.com/en-us/articles/disclosure-of-hw-prefetcher-control-on-some-intel-processors
+0x1a4
+sudo rdmsr 0x1a4
+Value of 0 means all h/w prefetchers enabled
+
+Setting the bits to 1 will disable prefetch
+sudo wrmsr 0x1a4 0xf
+
+To verify use perf-
+(from man perf-list)
+If the Intel docs for a QM720 Core i7 describe an event as:
+Event  Umask  Event Mask
+Num.   Value  Mnemonic    Description                        Comment
+A8H      01H  LSD.UOPS    Counts the number of micro-ops     Use cmask=1 and
+delivered by loop stream detector  invert to count
+cycles
+raw encoding of 0x1A8 can be used
+perf stat -e r1a8 -a sleep 1
+perf record -e r1a8 ...
+
+Frequency Scaling - ondemand frequency scaling means variable performance so use performance governor
+https://wiki.archlinux.org/index.php/CPU_frequency_scaling
+cpupower frequency-set -g governor
 
 
 If using Ftrace, follow the following steps
