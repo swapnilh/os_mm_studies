@@ -38,3 +38,7 @@ cpupower frequency-set -g governor
 If using Ftrace, follow the following steps
 echo 0 | sudo tee /sys/kernel/debug/tracing/tracing_on
 echo function_graph | sudo tee /sys/kernel/debug/tracing/current_tracer
+
+
+use filefrag to find how many extents in a file
+filefrag <file>

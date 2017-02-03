@@ -9,8 +9,11 @@
 #include <unistd.h> 
 #include <errno.h> 
 #include <pthread.h> 
+#include <string.h> 
+#include <assert.h> 
 
 #define NUM_CPUS 8
+#define CHUNK_SIZE 16384 
 
 #define handle_error_en(en, msg) \
     do { errno = en; perror(msg); exit(EXIT_FAILURE); } while (0)
@@ -39,18 +42,15 @@ int main (int argc, char* const argv[])
     cpu_set_t cpuset;
     pthread_t thread;
     int s, core; 
-    /* Stores user option for read/write/none */
-    char touch;
-    /* Stores user option for number of ops */
-    int num_ops;
-    /* Stores user option for file to mmap */
-    char *file_path;
+    char touch;         /* Stores user option for read/memcpy */
+    char *file_path;    /* Stores user option for file to mmap */
     size_t filesize;
     int fd; 
     char* file_memory; 
-    int i;
-    char a;
-    long *random_series;
+    ssize_t read_in;    /* Number of bytes read in */
+    char buffer[CHUNK_SIZE]; /* buffer to store the read bytes in */
+    int iter = 0; /* Number of iterations for reading complete file */
+
     /* Seed the random number generator. */ 
     srand (time (NULL)); 
 
@@ -66,79 +66,82 @@ int main (int argc, char* const argv[])
     printf("Pinned to CPU%d\n", core);
 
     pid = getpid();
-    if(argc != 4){
-        printf("Usage: mmap-file </path/to/file> <r/w/n> <# operations>\n");
-        printf("Second argument must be r(ead)/w(rite)/n(op)\n");
+    if(argc != 3){
+        printf("Usage: mmap-file </path/to/file> <m/r>\n");
+        printf("Second argument must be r(ead syscall)/m(emcpy)\n");
         exit(0);
     }
     else {
         touch = (char) argv[2][0];
-        if (touch != 'r' && touch != 'w' && touch != 'n') {
-            printf("Second argument must be r(ead)/w(rite)/n(op)\n");
+        if (touch != 'r' && touch != 'm') {
+            printf("Second argument must be r(ead syscall)/m(emcpy)\n");
             exit(0);
         }
         file_path = argv[1];
-        num_ops = atoi(argv[3]);
         filesize = getFilesize(file_path);
     }
 
     printf("Mapped File: %s\n", file_path);
     printf("Size:%zu\n", filesize);
     printf("Per-page operation: %c\n", touch);
-    printf("Number of operations: %d\n", num_ops);
 
-    /* Create a list of random numbers from [0, filesize) */
-    printf("Random series (%d):", RAND_MAX); 
-    random_series = (long *) malloc(num_ops * sizeof(long));
-    for(i=0; i<num_ops; i++){ 
-        random_series[i]=random_range(0, (filesize-1<RAND_MAX)?(filesize-1):RAND_MAX);
-        if (i<100)
-            printf("%lu ", random_series[i]);
-    }
-    printf("\n");    
-
-    /* Prepare a file large enough to hold an unsigned integer. */ 
     fd = open (file_path, O_RDWR, S_IRUSR | S_IWUSR); 
     if (fd == -1) {
         perror("File cannot be opened!");
     }
 
-    /*
-    lseek (fd, random_range(0,filesize-1), SEEK_SET); 
-    write (fd, "", 1); 
-    lseek (fd, 0, SEEK_SET); 
-    */
     /* Create the memory mapping. */ 
-	clock_gettime( CLOCK_REALTIME, &start); 
-    file_memory = mmap (0, filesize, PROT_WRITE, MAP_SHARED, fd, 0); 
-	clock_gettime( CLOCK_REALTIME, &stop); 
-    close (fd); 
-	
+    if(touch == 'm') {
+        clock_gettime( CLOCK_REALTIME, &start); 
+        file_memory = mmap (0, filesize, PROT_READ, MAP_SHARED, fd, 0); 
+        clock_gettime( CLOCK_REALTIME, &stop); 
+    }
+
     accum = ( stop.tv_sec - start.tv_sec )*1000000000  +
 		(stop.tv_nsec - start.tv_nsec);
 	printf( "mmap: %lf us\n", accum/1000 );
 
-    if(touch != 'n') {
-        for(i=0; i<num_ops; i++) {
-            if(touch == 'w') 
-                /* Write 'b' to a random addr in memory-mapped area. */ 
-                file_memory[random_series[i]] =  'b'; 
-            else
-                /* Read from a random addr in memory-mapped area. */ 
-                a = file_memory[random_series[i]];
+    /* Read file in CHUNK_SIZE chunks using read syscall */
+    if(touch == 'r') {
+        clock_gettime( CLOCK_REALTIME, &start); 
+        while(filesize> 0) {
+            read_in = read(fd, &buffer, CHUNK_SIZE);
+            assert(read_in>0);
+            filesize-=CHUNK_SIZE;
+            iter++;
         }
-        printf("%d ops complete\n", num_ops);
+        clock_gettime( CLOCK_REALTIME, &stop); 
     }
+    /* Read file in CHUNK_SIZE chunks using memcpy */
+    else {
+        clock_gettime( CLOCK_REALTIME, &start); 
+        while(filesize> 0) {
+            memcpy(&buffer, file_memory, CHUNK_SIZE);
+            file_memory+=CHUNK_SIZE;
+            filesize-=CHUNK_SIZE;
+            iter++;
+        }
+        clock_gettime( CLOCK_REALTIME, &stop); 
+    }
+
+    accum = ( stop.tv_sec - start.tv_sec )*1000000000  +
+		(stop.tv_nsec - start.tv_nsec);
+	printf( "Read/memcpy time: %lf us\n", accum/1000 );
 
     //[4] print PID and buffer addresses:
     printf("PID:%d\n", pid);
+    printf("Iterations taken:%d\n", iter);
+    printf("Sanity Check : Buffer output\n");
 
-    /* only here to avoid unused variable warning/error */
-    if(touch == 'r')
-        printf("a:%c\n", a);
-
+    int i;
+    for(i=0; i<10; i++)
+        printf("%c ",buffer[i]);
+    printf("\n");
     /* Release the memory (unnecessary because the program exits). */ 
-    munmap (file_memory, filesize); 
+    if(touch == 'm')
+        munmap (file_memory, filesize); 
+
+    close (fd); 
 
     return 0; 
 }  

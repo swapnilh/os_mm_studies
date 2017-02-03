@@ -1,1 +1,4 @@
 *.log
+data*/
+*.out
+.__afs*
