@@ -76,7 +76,7 @@ int main( int argc, char *argv[]){
     int s, core; 
     /* Stores user option for read/write/none */
     char touch;
-    char a;
+    char a = '0';
     /* 4KB, 400KB, 4MB, 400MB, 4GB, 40GB */
     size_t sizes[] = {4096, 409600, 4194304, 419430400, 4294967296, 42949672960};
 
@@ -160,18 +160,21 @@ int main( int argc, char *argv[]){
 
     //[3] protect the page with PROT_NONE:
     if (trace_fd >= 0)
-        write(trace_fd, "1", 1);
+        if(!write(trace_fd, "1", 1))
+            printf("Write 1 failed\n");
     if (marker_fd >= 0)
-        write(marker_fd, "Before mprotect\n", 17);
+        if(!write(marker_fd, "Before mprotect\n", 17))
+            printf("Write 2 failed\n");
 
     clock_gettime( CLOCK_REALTIME, &start); 
     mprotect(buffer, size_sel, PROT_NONE);
     clock_gettime( CLOCK_REALTIME, &stop); 
     if (marker_fd >= 0)
-        write(marker_fd, "After mprotect\n", 17);
+        if(!write(marker_fd, "After mprotect\n", 17))
+            printf("Write 3 failed\n");
     if (trace_fd >= 0)
-        write(trace_fd, "0", 1);
-
+        if(!write(trace_fd, "0", 1))
+            printf("Write 4 failed\n");
     accum = ( stop.tv_sec - start.tv_sec )*1000000000  +
         (stop.tv_nsec - start.tv_nsec);
     printf( "mprotect: %lf us\n", accum/1000 );

@@ -1,3 +1,5 @@
+gcc -O0  -Wall -g -o segment_map -pie -fpic  segment_map.c  -lpthread
+setcap cap_sys_resource=ep mov_code_segment
 mmap.c is a microbenchmark written to determine mmap, mprotect latencies
 
 1. Process pinned to a random core

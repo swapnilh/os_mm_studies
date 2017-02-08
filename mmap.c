@@ -33,7 +33,7 @@ int main( int argc, char *argv[]){
     int s, core; 
     /* Stores user option for read/write/none */
     char touch;
-    char a;
+    char a = '0';
     /* 4KB, 400KB, 4MB, 400MB, 4GB, 40GB */
     size_t sizes[] = {4096, 409600, 4194304, 419430400, 4294967296, 42949672960};
 
@@ -112,14 +112,15 @@ int main( int argc, char *argv[]){
     //[4] print PID and buffer addresses:
     printf("buffer at %p\n", buffer);
     printf("PID:%d\n", pid);
+    if (touch != 'n') {
     /* only here to avoid unused variable warning/error */
-    printf("a:%c\n", a);
+        printf("a:%c\n", a);
+    //Making sure mmap/mprotect is not optimized out
+        *buffer = 'a';
+    }
     
     //spin until killed so that we know it's in memory:
     while(1);
-
-    //Making sure mmap/mprotect is not optimized out
-    *buffer = 'a';
 
     return 0;
 }
