@@ -49,7 +49,7 @@ int main (int argc, char* const argv[])
     int fd; 
     char* file_memory; 
     int i;
-    char a;
+    char a = '0';
     long *random_series;
     /* Seed the random number generator. */ 
     srand (time (NULL)); 

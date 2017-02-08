@@ -46,7 +46,7 @@ int main (int argc, char* const argv[])
     char *file_path;    /* Stores user option for file to mmap */
     size_t filesize;
     int fd; 
-    char* file_memory; 
+    char* file_memory = NULL; 
     ssize_t read_in;    /* Number of bytes read in */
     char buffer[CHUNK_SIZE]; /* buffer to store the read bytes in */
     int iter = 0; /* Number of iterations for reading complete file */
