@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <pthread.h>
+#include <unistd.h>
 
 int temp_data = 100;
 static int temp_bss;
@@ -16,11 +18,12 @@ void print_addr ( void )
         printf ( "\n\tData Segment : %p" , data_segment_address );
         printf ( "\n\tBSS : %p" , bss_address );
         printf ( "\n\tStack Segment : %p\n" , stack_segment_address );
-
 }
 
 int main ( )
 {
         print_addr ();
+        printf("pid:%d\n",getpid());
+        while(1);
         return 0;
 }

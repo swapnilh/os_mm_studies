@@ -7,7 +7,7 @@ CFLAGS = -O2 -Wall -g
 PIE_CFLAGS = -fpic -pie
 
 segment_map: segment_map.c
-	${CC} ${CFLAGS} ${PIC_CFLAGS} -o $@ $< ${LIBS} 
+	${CC} ${CFLAGS} ${PIE_CFLAGS} -o $@ $< ${LIBS} 
 
 mov_code_segment: mov_code_segment.c
 	${CC} ${CFLAGS} ${PIE_CFLAGS} -o $@ $< ${LIBS} 
