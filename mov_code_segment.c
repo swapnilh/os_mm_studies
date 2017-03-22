@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/prctl.h>
 #include <time.h>
 #include <inttypes.h>
@@ -28,12 +29,21 @@ void print_addr ( void )
 
 int main ( )
 {
+	char a = '0';
+        printf("pid:%d\n",getpid());
         print_addr ();
+	scanf("%c", &a);
         uintptr_t addr = (uintptr_t) mmap(NULL,4194304, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_ANONYMOUS, 0, 0);
+	if ((void *)addr == MAP_FAILED) {
+		perror("mmap failed!");
+		exit(0);
+	}
         printf("mmap-ed region:%" PRIx64 "\n", addr); 
         int status = prctl(PR_SET_MM, PR_SET_MM_START_CODE, addr, 0, 0);
+	scanf("%c", &a);
         if (status<0)
             perror("prctl failed!");
         print_addr ();
+	while(1);
         return 0;
 }

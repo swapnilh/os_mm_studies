@@ -1,0 +1,1 @@
+setcap cap_sys_resource=ep mov_code_segment

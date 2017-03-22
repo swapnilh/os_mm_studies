@@ -120,32 +120,41 @@ int main( int argc, char *argv[]){
     printf("Pinned to CPU%d\n", core);
 
     if(argc != 2){
-        printf("Usage: mmap <size:1-5 or exact size>5> \n");
+        printf("Usage: mmap <size:1-5> \n");
         printf("0. 4KB\n1. 400KB\n2. 4MB\n3. 400MB\n4. 4GB\n5. 40GB\n");
         exit(0);
     }
-    else if ( atoi(argv[1]) < 5){
+    else if (atoi(argv[1])<=5){
         size_sel = sizes[atoi(argv[1])];
     }
-    else {
+    else if (atoi(argv[1])>5) {
 	size_sel = atoi(argv[1]);
-    }
+    }	
 
     printf("Size: %zu\n", size_sel);
 
     //[1] create a pointer in order to allocate 
     //memory region
     char *buffer;
+    int fd; 
+    
+    fd = open ("/home/swapnil/os_mm_studies/file_4G.dat", O_RDWR, S_IRUSR | S_IWUSR); 
+    if (fd == -1) {
+        perror("File cannot be opened!");
+    }
   
     //protected buffer:
     //allocate memory with mmap()
-    buffer = (char *) mmap(NULL,
+    buffer = (char *) mmap(0,
                       size_sel,
                       PROT_READ|PROT_WRITE,
 //                      MAP_PRIVATE|MAP_ANONYMOUS|MAP_NORESERVE|MAP_POPULATE,
-                      MAP_PRIVATE|MAP_ANONYMOUS|MAP_POPULATE,
-                      0,0);
-
+                      MAP_PRIVATE|MAP_POPULATE,
+                      fd, 0);
+    if (buffer == MAP_FAILED) {
+	perror("MMAP failed!");
+	exit(1);
+    }	
     uintptr_t phys_addr = virtual_to_physical_address((uintptr_t)buffer);
     printf("Before remap vaddr:%p, paddr:%" PRIx64 "\n", buffer, phys_addr);
     printf("Before remap vaddr:%p, paddr:%" PRIx64 "\n", buffer+size_sel-4096, virtual_to_physical_address((uintptr_t)buffer+size_sel-4096));
@@ -153,23 +162,26 @@ int main( int argc, char *argv[]){
     if (buffer == MAP_FAILED) 
         perror("remap failed");
     for(i=(uintptr_t)buffer; i<=(uintptr_t) buffer+size_sel-4096; i+=4096) {
-	phys_addr = virtual_to_physical_address((uintptr_t)i);
+/*	phys_addr = virtual_to_physical_address((uintptr_t)i);
 	if(i != phys_addr) {
 	    printf("Error! Couldn't map to physical address.\n");
 	    printf("%d (-1) pages mapped\n", (int)((char *)i-buffer)/4096);
 	    break;
 	}
         //printf("After remap vaddr:%" PRIx64 ", paddr:%" PRIx64 "\n", i, phys_addr);
+        //
+        */
     }
     phys_addr = virtual_to_physical_address((uintptr_t)buffer);
-        printf("After remap vaddr:%p, paddr:%" PRIx64 "\n", buffer, phys_addr);
-	  printf("After remap vaddr:%p, paddr:%" PRIx64 "\n", buffer+size_sel-4096, virtual_to_physical_address((uintptr_t)buffer+size_sel-4096));
-	  if ((uintptr_t) buffer != phys_addr)
-        printf("Error! Couldn't map to physical address.\n");
+    printf("After remap vaddr:%p, paddr:%" PRIx64 "\n", buffer, phys_addr);
+    printf("After remap vaddr:%p, paddr:%" PRIx64 "\n", buffer+size_sel-4096, virtual_to_physical_address((uintptr_t)buffer+size_sel-4096));
+    if ((uintptr_t) buffer != phys_addr)
+	    printf("Error! Couldn't map to physical address.\n");
     phys_addr = virtual_to_physical_address((uintptr_t)buffer+size_sel-4096);
     if ((uintptr_t) buffer+size_sel-4096 != phys_addr)
         printf("Error! Couldn't map to physical address.\n");
-    while(1);
+    while(1);	
     munmap(buffer, size_sel);
+    close (fd); 
     return 0;
 }

@@ -1,0 +1,94 @@
+00400000-00610000 r-xp 00000000 08:12 1970137                            /usr/bin/vim
+00810000-00811000 r--p 00210000 08:12 1970137                            /usr/bin/vim
+00811000-00827000 rw-p 00211000 08:12 1970137                            /usr/bin/vim
+00827000-00b29000 rw-p 00000000 00:00 0                                  [heap]
+7fffeee56000-7fffeee61000 r-xp 00000000 08:12 1975850                    /usr/lib64/libnss_files-2.18.so
+7fffeee61000-7fffef060000 ---p 0000b000 08:12 1975850                    /usr/lib64/libnss_files-2.18.so
+7fffef060000-7fffef061000 r--p 0000a000 08:12 1975850                    /usr/lib64/libnss_files-2.18.so
+7fffef061000-7fffef062000 rw-p 0000b000 08:12 1975850                    /usr/lib64/libnss_files-2.18.so
+7fffef062000-7ffff558b000 r--p 00000000 08:12 1977002                    /usr/lib/locale/locale-archive
+7ffff558b000-7ffff5602000 r-xp 00000000 08:12 1976164                    /usr/lib64/libfreebl3.so
+7ffff5602000-7ffff5801000 ---p 00077000 08:12 1976164                    /usr/lib64/libfreebl3.so
+7ffff5801000-7ffff5803000 r--p 00076000 08:12 1976164                    /usr/lib64/libfreebl3.so
+7ffff5803000-7ffff5804000 rw-p 00078000 08:12 1976164                    /usr/lib64/libfreebl3.so
+7ffff5804000-7ffff5808000 rw-p 00000000 00:00 0 
+7ffff5808000-7ffff580a000 r-xp 00000000 08:12 1974841                    /usr/lib64/libutil-2.18.so
+7ffff580a000-7ffff5a09000 ---p 00002000 08:12 1974841                    /usr/lib64/libutil-2.18.so
+7ffff5a09000-7ffff5a0a000 r--p 00001000 08:12 1974841                    /usr/lib64/libutil-2.18.so
+7ffff5a0a000-7ffff5a0b000 rw-p 00002000 08:12 1974841                    /usr/lib64/libutil-2.18.so
+7ffff5a0b000-7ffff5a13000 r-xp 00000000 08:12 1974183                    /usr/lib64/libcrypt-2.18.so
+7ffff5a13000-7ffff5c12000 ---p 00008000 08:12 1974183                    /usr/lib64/libcrypt-2.18.so
+7ffff5c12000-7ffff5c13000 r--p 00007000 08:12 1974183                    /usr/lib64/libcrypt-2.18.so
+7ffff5c13000-7ffff5c14000 rw-p 00008000 08:12 1974183                    /usr/lib64/libcrypt-2.18.so
+7ffff5c14000-7ffff5c42000 rw-p 00000000 00:00 0 
+7ffff5c42000-7ffff5c58000 r-xp 00000000 08:12 1975848                    /usr/lib64/libnsl-2.18.so
+7ffff5c58000-7ffff5e57000 ---p 00016000 08:12 1975848                    /usr/lib64/libnsl-2.18.so
+7ffff5e57000-7ffff5e58000 r--p 00015000 08:12 1975848                    /usr/lib64/libnsl-2.18.so
+7ffff5e58000-7ffff5e59000 rw-p 00016000 08:12 1975848                    /usr/lib64/libnsl-2.18.so
+7ffff5e59000-7ffff5e5b000 rw-p 00000000 00:00 0 
+7ffff5e5b000-7ffff5e71000 r-xp 00000000 08:12 1975852                    /usr/lib64/libresolv-2.18.so
+7ffff5e71000-7ffff6071000 ---p 00016000 08:12 1975852                    /usr/lib64/libresolv-2.18.so
+7ffff6071000-7ffff6072000 r--p 00016000 08:12 1975852                    /usr/lib64/libresolv-2.18.so
+7ffff6072000-7ffff6073000 rw-p 00017000 08:12 1975852                    /usr/lib64/libresolv-2.18.so
+7ffff6073000-7ffff6075000 rw-p 00000000 00:00 0 
+7ffff6075000-7ffff6079000 r-xp 00000000 08:12 1974128                    /usr/lib64/libattr.so.1.1.0
+7ffff6079000-7ffff6278000 ---p 00004000 08:12 1974128                    /usr/lib64/libattr.so.1.1.0
+7ffff6278000-7ffff6279000 r--p 00003000 08:12 1974128                    /usr/lib64/libattr.so.1.1.0
+7ffff6279000-7ffff627a000 rw-p 00004000 08:12 1974128                    /usr/lib64/libattr.so.1.1.0
+7ffff627a000-7ffff629e000 r-xp 00000000 08:12 1973581                    /usr/lib64/liblzma.so.5.0.99
+7ffff629e000-7ffff649d000 ---p 00024000 08:12 1973581                    /usr/lib64/liblzma.so.5.0.99
+7ffff649d000-7ffff649e000 r--p 00023000 08:12 1973581                    /usr/lib64/liblzma.so.5.0.99
+7ffff649e000-7ffff649f000 rw-p 00024000 08:12 1973581                    /usr/lib64/liblzma.so.5.0.99
+7ffff649f000-7ffff6504000 r-xp 00000000 08:12 1973691                    /usr/lib64/libpcre.so.1.2.1
+7ffff6504000-7ffff6703000 ---p 00065000 08:12 1973691                    /usr/lib64/libpcre.so.1.2.1
+7ffff6703000-7ffff6704000 r--p 00064000 08:12 1973691                    /usr/lib64/libpcre.so.1.2.1
+7ffff6704000-7ffff6705000 rw-p 00065000 08:12 1973691                    /usr/lib64/libpcre.so.1.2.1
+7ffff6705000-7ffff68b9000 r-xp 00000000 08:12 1974111                    /usr/lib64/libc-2.18.so
+7ffff68b9000-7ffff6ab8000 ---p 001b4000 08:12 1974111                    /usr/lib64/libc-2.18.so
+7ffff6ab8000-7ffff6abc000 r--p 001b3000 08:12 1974111                    /usr/lib64/libc-2.18.so
+7ffff6abc000-7ffff6abe000 rw-p 001b7000 08:12 1974111                    /usr/lib64/libc-2.18.so
+7ffff6abe000-7ffff6ac3000 rw-p 00000000 00:00 0 
+7ffff6ac3000-7ffff6adb000 r-xp 00000000 08:12 1974633                    /usr/lib64/libpthread-2.18.so
+7ffff6adb000-7ffff6cda000 ---p 00018000 08:12 1974633                    /usr/lib64/libpthread-2.18.so
+7ffff6cda000-7ffff6cdb000 r--p 00017000 08:12 1974633                    /usr/lib64/libpthread-2.18.so
+7ffff6cdb000-7ffff6cdc000 rw-p 00018000 08:12 1974633                    /usr/lib64/libpthread-2.18.so
+7ffff6cdc000-7ffff6ce0000 rw-p 00000000 00:00 0 
+7ffff6ce0000-7ffff6e6a000 r-xp 00000000 08:12 1967115                    /usr/lib64/libperl.so.5.18.4
+7ffff6e6a000-7ffff7069000 ---p 0018a000 08:12 1967115                    /usr/lib64/libperl.so.5.18.4
+7ffff7069000-7ffff706e000 r--p 00189000 08:12 1967115                    /usr/lib64/libperl.so.5.18.4
+7ffff706e000-7ffff7074000 rw-p 0018e000 08:12 1967115                    /usr/lib64/libperl.so.5.18.4
+7ffff7074000-7ffff7077000 r-xp 00000000 08:12 1975846                    /usr/lib64/libdl-2.18.so
+7ffff7077000-7ffff7276000 ---p 00003000 08:12 1975846                    /usr/lib64/libdl-2.18.so
+7ffff7276000-7ffff7277000 r--p 00002000 08:12 1975846                    /usr/lib64/libdl-2.18.so
+7ffff7277000-7ffff7278000 rw-p 00003000 08:12 1975846                    /usr/lib64/libdl-2.18.so
+7ffff7278000-7ffff727d000 r-xp 00000000 08:12 1970136                    /usr/lib64/libgpm.so.2.1.0
+7ffff727d000-7ffff747d000 ---p 00005000 08:12 1970136                    /usr/lib64/libgpm.so.2.1.0
+7ffff747d000-7ffff747e000 r--p 00005000 08:12 1970136                    /usr/lib64/libgpm.so.2.1.0
+7ffff747e000-7ffff747f000 rw-p 00006000 08:12 1970136                    /usr/lib64/libgpm.so.2.1.0
+7ffff747f000-7ffff7486000 r-xp 00000000 08:12 1974108                    /usr/lib64/libacl.so.1.1.0
+7ffff7486000-7ffff7686000 ---p 00007000 08:12 1974108                    /usr/lib64/libacl.so.1.1.0
+7ffff7686000-7ffff7687000 r--p 00007000 08:12 1974108                    /usr/lib64/libacl.so.1.1.0
+7ffff7687000-7ffff7688000 rw-p 00008000 08:12 1974108                    /usr/lib64/libacl.so.1.1.0
+7ffff7688000-7ffff76ad000 r-xp 00000000 08:12 1974845                    /usr/lib64/libtinfo.so.5.9
+7ffff76ad000-7ffff78ad000 ---p 00025000 08:12 1974845                    /usr/lib64/libtinfo.so.5.9
+7ffff78ad000-7ffff78b1000 r--p 00025000 08:12 1974845                    /usr/lib64/libtinfo.so.5.9
+7ffff78b1000-7ffff78b2000 rw-p 00029000 08:12 1974845                    /usr/lib64/libtinfo.so.5.9
+7ffff78b2000-7ffff78d3000 r-xp 00000000 08:12 1974018                    /usr/lib64/libselinux.so.1
+7ffff78d3000-7ffff7ad2000 ---p 00021000 08:12 1974018                    /usr/lib64/libselinux.so.1
+7ffff7ad2000-7ffff7ad3000 r--p 00020000 08:12 1974018                    /usr/lib64/libselinux.so.1
+7ffff7ad3000-7ffff7ad4000 rw-p 00021000 08:12 1974018                    /usr/lib64/libselinux.so.1
+7ffff7ad4000-7ffff7ad6000 rw-p 00000000 00:00 0 
+7ffff7ad6000-7ffff7bdb000 r-xp 00000000 08:12 1975847                    /usr/lib64/libm-2.18.so
+7ffff7bdb000-7ffff7ddb000 ---p 00105000 08:12 1975847                    /usr/lib64/libm-2.18.so
+7ffff7ddb000-7ffff7ddc000 r--p 00105000 08:12 1975847                    /usr/lib64/libm-2.18.so
+7ffff7ddc000-7ffff7ddd000 rw-p 00106000 08:12 1975847                    /usr/lib64/libm-2.18.so
+7ffff7ddd000-7ffff7dfd000 r-xp 00000000 08:12 1975805                    /usr/lib64/ld-2.18.so
+7ffff7fd4000-7ffff7fdd000 rw-p 00000000 00:00 0 
+7ffff7ff7000-7ffff7ff8000 rw-p 00000000 00:00 0 
+7ffff7ff8000-7ffff7ffa000 r--p 00000000 00:00 0                          [vvar]
+7ffff7ffa000-7ffff7ffc000 r-xp 00000000 00:00 0                          [vdso]
+7ffff7ffc000-7ffff7ffd000 r--p 0001f000 08:12 1975805                    /usr/lib64/ld-2.18.so
+7ffff7ffd000-7ffff7ffe000 rw-p 00020000 08:12 1975805                    /usr/lib64/ld-2.18.so
+7ffff7ffe000-7ffff7fff000 rw-p 00000000 00:00 0 
+7ffffffde000-7ffffffff000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
